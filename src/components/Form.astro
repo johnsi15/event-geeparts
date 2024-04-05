@@ -1,5 +1,5 @@
 <form>
-  <div class='grid gap-6 mb-6 md:grid-cols-2'>
+  <div class='grid gap-6 mb-6 grid-cols-1 md:grid-cols-2'>
     <div>
       <label for='type_person' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
         >Seleccione una opción</label
@@ -33,7 +33,7 @@
         required
       />
     </div>
-    <div>
+    <div class='motorcycle'>
       <label for='motorcycle' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
         >¿Qué moto tiene?</label
       >
@@ -42,6 +42,16 @@
         id='motorcycle'
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='Pulsar NS 160 FI'
+        required
+      />
+    </div>
+    <div class='city hidden'>
+      <label for='city' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Ciudad</label>
+      <input
+        type='text'
+        id='city'
+        class='block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+        placeholder='Cúcuta'
         required
       />
     </div>
@@ -76,7 +86,22 @@
 
 <script>
   const select = document.getElementById('type_person')
-  select?.addEventListener('change', () => {
-    console.log('change option')
+  const city = document.querySelector('.city')
+  const motorcycle = document.querySelector('.motorcycle')
+
+  select?.addEventListener('change', event => {
+    const select = event.target as HTMLSelectElement
+
+    if (select.value === 'detal') {
+      city?.classList.remove('block')
+      city?.classList.add('hidden')
+      motorcycle?.classList.remove('hidden')
+      motorcycle?.classList.add('block')
+    } else {
+      city?.classList.remove('hidden')
+      city?.classList.add('block')
+      motorcycle?.classList.remove('block')
+      motorcycle?.classList.add('hidden')
+    }
   })
 </script>
