@@ -23,6 +23,7 @@
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='John'
         required
+        value='John'
       />
     </div>
     <div>
@@ -34,6 +35,7 @@
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='Serrano'
         required
+        value='Serrano'
       />
     </div>
     <div class='motorcycle'>
@@ -47,6 +49,7 @@
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='Pulsar NS 160 FI'
         required
+        value='Pulsar'
       />
     </div>
     <div class='city hidden'>
@@ -63,6 +66,7 @@
         placeholder='3043538612'
         pattern='[0-9]{3}[0-9]{3}[0-9]{4}'
         required
+        value='3043538612'
       />
     </div>
     <div>
@@ -74,6 +78,7 @@
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='me@johnserrano.co'
         required
+        value='john.serrano10@laopinion.com.co'
       />
     </div>
   </div>
@@ -121,10 +126,19 @@
 
   form?.addEventListener('submit', async event => {
     event.preventDefault()
-    const res = await fetch('/api/event-two-wheels')
-    const data = await res.json()
+    const formData = new FormData(form)
 
-    console.log({ data })
+    // for (const [key, value] of formData) {
+    //   console.log(`${key}: ${value}\n`)
+    // }
+    const res = await fetch('/api/event-two-wheels', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    })
+
+    const data = await res.json()
+    console.log({ data, res })
   })
 
   const fieldInputCity = () => {
