@@ -1,4 +1,4 @@
-<form>
+<form id='form_event'>
   <div class='grid gap-6 mb-6 grid-cols-1 md:grid-cols-2'>
     <div>
       <label for='type_person' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
@@ -7,6 +7,7 @@
       <select
         id='type_person'
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+        name='type_person'
       >
         <!-- <option selected>Tipo de persona</option> -->
         <option value='detal'>Detal</option>
@@ -18,6 +19,7 @@
       <input
         type='text'
         id='first_name'
+        name='first_name'
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='John'
         required
@@ -28,6 +30,7 @@
       <input
         type='text'
         id='last_name'
+        name='last_name'
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='Serrano'
         required
@@ -40,6 +43,7 @@
       <input
         type='text'
         id='motorcycle'
+        name='motorcycle'
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='Pulsar NS 160 FI'
         required
@@ -47,19 +51,14 @@
     </div>
     <div class='city hidden'>
       <label for='city' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Ciudad</label>
-      <input
-        type='text'
-        id='city'
-        class='block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
-        placeholder='Cúcuta'
-        required
-      />
+      <!-- Input -->
     </div>
     <div>
       <label for='phone' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Número de celular</label>
       <input
         type='tel'
         id='phone'
+        name='phone'
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='3043538612'
         pattern='[0-9]{3}[0-9]{3}[0-9]{4}'
@@ -71,6 +70,7 @@
       <input
         type='email'
         id='email'
+        name='email'
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='me@johnserrano.co'
         required
@@ -88,6 +88,7 @@
   const select = document.getElementById('type_person')
   const city = document.querySelector('.city')
   const motorcycle = document.querySelector('.motorcycle')
+  const form = document.getElementById('form_event')
 
   select?.addEventListener('change', event => {
     const select = event.target as HTMLSelectElement
@@ -97,11 +98,58 @@
       city?.classList.add('hidden')
       motorcycle?.classList.remove('hidden')
       motorcycle?.classList.add('block')
+
+      const idInputCity = document.getElementById('city')
+      if (idInputCity) {
+        city?.removeChild(idInputCity)
+      }
+
+      motorcycle?.appendChild(fieldInputMotorcycle())
     } else {
+      const idInputMotorcycle = document.getElementById('motorcycle')
+      if (idInputMotorcycle) {
+        motorcycle?.removeChild(idInputMotorcycle)
+      }
+
+      city?.appendChild(fieldInputCity())
       city?.classList.remove('hidden')
       city?.classList.add('block')
       motorcycle?.classList.remove('block')
       motorcycle?.classList.add('hidden')
     }
   })
+
+  form?.addEventListener('submit', async event => {
+    event.preventDefault()
+    const res = await fetch('/api/event-two-wheels')
+    const data = await res.json()
+
+    console.log({ data })
+  })
+
+  const fieldInputCity = () => {
+    const inputCity = document.createElement('input')
+    inputCity.type = 'text'
+    inputCity.id = 'city'
+    inputCity.name = 'city'
+    inputCity.className =
+      'block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+    inputCity.placeholder = 'Cúcuta'
+    inputCity.required = true
+
+    return inputCity
+  }
+
+  const fieldInputMotorcycle = () => {
+    const inputMotorcycle = document.createElement('input')
+    inputMotorcycle.type = 'text'
+    inputMotorcycle.id = 'motorcycle'
+    inputMotorcycle.name = 'motorcycle'
+    inputMotorcycle.className =
+      'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+    inputMotorcycle.placeholder = 'Pulsar NS 160 FI'
+    inputMotorcycle.required = true
+
+    return inputMotorcycle
+  }
 </script>
