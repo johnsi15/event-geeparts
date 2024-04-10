@@ -66,7 +66,7 @@
         placeholder='3043538612'
         pattern='[0-9]{3}[0-9]{3}[0-9]{4}'
         required
-        value='3043538612'
+        value='3043538615'
       />
     </div>
     <div>
@@ -78,7 +78,7 @@
         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='me@johnserrano.co'
         required
-        value='john.serrano10@laopinion.com.co'
+        value='me@johnserrano.co'
       />
     </div>
   </div>
@@ -93,7 +93,7 @@
   const select = document.getElementById('type_person')
   const city = document.querySelector('.city')
   const motorcycle = document.querySelector('.motorcycle')
-  const form = document.getElementById('form_event')
+  const form = document.getElementById('form_event') as HTMLFormElement
 
   select?.addEventListener('change', event => {
     const select = event.target as HTMLSelectElement
@@ -128,9 +128,6 @@
     event.preventDefault()
     const formData = new FormData(form)
 
-    // for (const [key, value] of formData) {
-    //   console.log(`${key}: ${value}\n`)
-    // }
     const res = await fetch('/api/event-two-wheels', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -139,6 +136,31 @@
 
     const data = await res.json()
     console.log({ data, res })
+    if (res.status !== 201) {
+      window.toast({
+        title: 'Error en el Registro',
+        message: 'Hubo un problema al intentar registrar los datos. Por favor, inténtalo de nuevo más tarde.',
+        location: 'bottom-center',
+        icon: false,
+        type: 'error',
+      })
+      return
+    }
+
+    let inputs = form.getElementsByTagName('input')
+
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].value = ''
+    }
+
+    window.toast({
+      title: 'Registro Exitoso',
+      message: 'Los datos se han registrado correctamente.',
+      location: 'bottom-center',
+      icon: false,
+      type: 'success',
+    })
+    // form.reset()
   })
 
   const fieldInputCity = () => {
