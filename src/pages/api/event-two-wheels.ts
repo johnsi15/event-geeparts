@@ -16,7 +16,11 @@ export const POST: APIRoute = async ({ request }) => {
   if (request.headers.get('Content-Type') === 'application/json') {
     const formData = await request.json()
     const { email, first_name, last_name, phone, motorcycle, type_person, city } = formData
-    console.log(formData)
+
+    if (!email) {
+      return res({ message: 'Email is required' }, { status: 400 })
+    }
+
     const dataRegister = {
       email,
       attributes: {
