@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro'
+import { Code } from 'astro:components'
 // import SibApiV3Sdk from '@getbrevo/brevo'
 
 const res = (
@@ -11,7 +12,7 @@ const res = (
 
 export const POST: APIRoute = async ({ request }) => {
   const url = 'https://api.brevo.com/v3/contacts'
-  const apiKey = import.meta.env.API_KEY // Reemplaza 'TU_API_KEY' con tu clave de API
+  const apiKey = import.meta.env.API_KEY
 
   if (request.headers.get('Content-Type') === 'application/json') {
     const formData = await request.json()
@@ -57,11 +58,14 @@ export const POST: APIRoute = async ({ request }) => {
       }
       const data = await response.json()
       console.log('Respuesta:', data)
+      if (data?.code === 'duplicate_parameter') return res({ message: data.code.message }, { status: 400 })
+
       return res({ message: 'Contact created', data }, { status: 201, headers: { 'Content-Type': 'application/json' } })
     } catch (error) {
       console.error('Error:', error)
       res({ message: 'Error create a contact brevo email' }, { status: 500 })
     }
+    return res({ message: 'ok' }, { status: 200, headers: { 'Content-Type': 'application/json' } })
   }
 
   return res({ message: 'Error request' }, { status: 400, headers: { 'Content-Type': 'application/json' } })
