@@ -97,8 +97,9 @@
     </div>
   </div>
   <button
+    id='submit'
     type='submit'
-    class='text-black bg-geeparts-300 hover:bg-geeparts-500 outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-geeparts-300 dark:hover:bg-geeparts-500'
+    class='text-black bg-geeparts-300 hover:bg-geeparts-500 outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-geeparts-300 dark:hover:bg-geeparts-500 disabled:bg-geeparts-500'
     >Enviar correo</button
   >
 </form>
@@ -107,6 +108,7 @@
   const select = document.getElementById('type_person')
   const city = document.querySelector('.city')
   const motorcycle = document.querySelector('.motorcycle')
+  const submit = document.getElementById('submit') as HTMLButtonElement
   const form = document.getElementById('form_event') as HTMLFormElement
 
   select?.addEventListener('change', event => {
@@ -141,6 +143,15 @@
   form?.addEventListener('submit', async event => {
     event.preventDefault()
     const formData = new FormData(form)
+    submit.disabled = true
+
+    const type_person = formData.get('type_person')
+
+    if (type_person === 'detal') {
+      formData.set('listId', '4')
+    } else {
+      formData.set('listId', '7')
+    }
 
     const res = await fetch('/api/event-two-wheels', {
       method: 'POST',
@@ -150,6 +161,8 @@
 
     const data = await res.json()
     console.log({ data, res })
+    submit.disabled = false
+    // form.reset()
     if (res.status !== 201) {
       window.toast({
         title: 'Error en el Registro',
@@ -174,7 +187,6 @@
       icon: false,
       type: 'success',
     })
-    // form.reset()
   })
 
   const fieldInputCity = () => {
