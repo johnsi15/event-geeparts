@@ -162,7 +162,8 @@
     const data = await res.json()
     console.log({ data, res })
     submit.disabled = false
-    // form.reset()
+    form.reset()
+
     if (res.status !== 201) {
       window.toast({
         title: 'Error en el Registro',
@@ -174,11 +175,11 @@
       return
     }
 
-    let inputs = form.getElementsByTagName('input')
+    // let inputs = form.getElementsByTagName('input')
 
-    for (let i = 0; i < inputs.length; i++) {
-      inputs[i].value = ''
-    }
+    // for (let i = 0; i < inputs.length; i++) {
+    //   inputs[i].value = ''
+    // }
 
     window.toast({
       title: 'Registro Exitoso',
