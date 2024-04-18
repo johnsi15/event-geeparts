@@ -48,7 +48,7 @@ export const POST: APIRoute = async ({ request }) => {
       listIds: [Number(listId)],
       emailBlacklisted: false,
       smsBlacklisted: false,
-      updateEnabled: false,
+      updateEnabled: true,
     }
 
     const options = {
@@ -63,19 +63,29 @@ export const POST: APIRoute = async ({ request }) => {
 
     try {
       const response = await fetch(url, options)
+
       if (!response.ok) {
         // throw new Error('Error try request: ' + response.statusText);
         res({ message: 'Bad request' }, { status: 400, statusText: response.statusText })
       }
+
+      if (response.status === 204) {
+        return res(
+          { message: 'Contact update' },
+          { status: 204, statusText: response.statusText, headers: { 'Content-Type': 'application/json' } }
+        )
+      }
+
       const data = await response.json()
       console.log('Respuesta:', data)
-      if (data?.code === 'duplicate_parameter') return res({ message: data.code.message }, { status: 400 })
+      // if (data?.code === 'duplicate_parameter') return res({ message: data.code.message }, { status: 400 })
 
       return res({ message: 'Contact created', data }, { status: 201, headers: { 'Content-Type': 'application/json' } })
     } catch (error) {
       console.error('Error:', error)
       res({ message: 'Error create a contact brevo email' }, { status: 500 })
     }
+
     return res({ message: 'ok' }, { status: 200, headers: { 'Content-Type': 'application/json' } })
   }
 
