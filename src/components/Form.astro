@@ -1,12 +1,10 @@
 <form id='form_event'>
   <div class='grid gap-6 mb-6 grid-cols-1 md:grid-cols-2'>
     <div>
-      <label for='type_person' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-        >Seleccione una opción</label
-      >
+      <label for='type_person' class='block mb-2 text-sm font-medium text-white'>Seleccione una opción</label>
       <select
         id='type_person'
-        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+        class='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         name='type_person'
       >
         <!-- <option selected>Tipo de persona</option> -->
@@ -15,69 +13,67 @@
       </select>
     </div>
     <div>
-      <label for='first_name' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Nombres</label>
+      <label for='first_name' class='block mb-2 text-sm font-medium text-white'>Nombres</label>
       <input
         type='text'
         id='first_name'
         name='first_name'
-        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+        class='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='John'
         required
       />
     </div>
     <div>
-      <label for='last_name' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Apellidos</label>
+      <label for='last_name' class='block mb-2 text-sm font-medium text-white'>Apellidos</label>
       <input
         type='text'
         id='last_name'
         name='last_name'
-        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+        class='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='Serrano'
         required
       />
     </div>
     <div class='motorcycle'>
-      <label for='motorcycle' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-        >¿Qué moto tiene?</label
-      >
+      <label for='motorcycle' class='block mb-2 text-sm font-medium text-white'>¿Qué moto tiene?</label>
       <input
         type='text'
         id='motorcycle'
         name='motorcycle'
-        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+        class='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='Pulsar NS 160 FI'
         required
       />
     </div>
     <div class='city hidden'>
-      <label for='city' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Ciudad</label>
+      <label for='city' class='block mb-2 text-sm font-medium text-white'>Ciudad</label>
       <!-- Input -->
     </div>
     <div>
-      <label for='phone' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Número de celular</label>
+      <label for='phone' class='block mb-2 text-sm font-medium text-white'>Número de celular</label>
       <input
         type='tel'
         id='phone'
         name='phone'
-        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+        class='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='3043538612'
         pattern='[0-9]{3}[0-9]{3}[0-9]{4}'
         required
       />
     </div>
     <div>
-      <label for='email' class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Correo electrónico</label>
+      <label for='email' class='block mb-2 text-sm font-medium text-white'>Correo electrónico</label>
       <input
         type='email'
         id='email'
         name='email'
-        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+        class='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
         placeholder='me@johnserrano.co'
         required
       />
     </div>
     <div class='flex items-start gap-3'>
-      <label for='terms' class='order-2 block text-sm font-medium text-gray-900 dark:text-white w-[90%]'>
+      <label for='terms' class='order-2 block text-sm font-medium text-white w-[90%]'>
         Acepto los <strong class='text-geeparts-300'>Términos y condiciones</strong> y el tratamiento de mis datos conforme
         a la <strong class='text-geeparts-300'>Política de Tratamiento de datos</strong>
         de Geeparts.
@@ -86,7 +82,7 @@
         type='checkbox'
         id='terms'
         name='terms'
-        class='order-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300 w-5 h-5 cursor-pointer'
+        class='order-1 bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300 w-5 h-5 cursor-pointer'
         required
       />
     </div>
@@ -191,7 +187,7 @@
     inputCity.id = 'city'
     inputCity.name = 'city'
     inputCity.className =
-      'block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+      'block bg-gray-700 border border-gray-600 text-white text-sm rounded-lg w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
     inputCity.placeholder = 'Cúcuta'
     inputCity.required = true
 
@@ -204,7 +200,7 @@
     inputMotorcycle.id = 'motorcycle'
     inputMotorcycle.name = 'motorcycle'
     inputMotorcycle.className =
-      'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
+      'bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
     inputMotorcycle.placeholder = 'Pulsar NS 160 FI'
     inputMotorcycle.required = true
 
