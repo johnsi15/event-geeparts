@@ -1,6 +1,4 @@
 import type { APIRoute } from 'astro'
-import { Code } from 'astro:components'
-// import SibApiV3Sdk from '@getbrevo/brevo'
 
 const res = (
   body: {
