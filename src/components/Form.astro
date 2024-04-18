@@ -96,38 +96,47 @@
 </form>
 
 <script>
-  const select = document.getElementById('type_person')
+  const select = document.getElementById('type_person') as HTMLSelectElement
   const city = document.querySelector('.city')
   const motorcycle = document.querySelector('.motorcycle')
   const submit = document.getElementById('submit') as HTMLButtonElement
   const form = document.getElementById('form_event') as HTMLFormElement
 
+  const removeInputCity = () => {
+    city?.classList.remove('block')
+    city?.classList.add('hidden')
+    motorcycle?.classList.remove('hidden')
+    motorcycle?.classList.add('block')
+
+    const idInputCity = document.getElementById('city')
+    if (idInputCity) {
+      city?.removeChild(idInputCity)
+    }
+
+    motorcycle?.appendChild(fieldInputMotorcycle())
+  }
+
+  const removeInputMotorcycle = () => {
+    const idInputMotorcycle = document.getElementById('motorcycle')
+    if (idInputMotorcycle) {
+      motorcycle?.removeChild(idInputMotorcycle)
+    }
+
+    city?.appendChild(fieldInputCity())
+
+    city?.classList.remove('hidden')
+    city?.classList.add('block')
+    motorcycle?.classList.remove('block')
+    motorcycle?.classList.add('hidden')
+  }
+
   select?.addEventListener('change', event => {
     const select = event.target as HTMLSelectElement
 
     if (select.value === 'detal') {
-      city?.classList.remove('block')
-      city?.classList.add('hidden')
-      motorcycle?.classList.remove('hidden')
-      motorcycle?.classList.add('block')
-
-      const idInputCity = document.getElementById('city')
-      if (idInputCity) {
-        city?.removeChild(idInputCity)
-      }
-
-      motorcycle?.appendChild(fieldInputMotorcycle())
+      removeInputCity()
     } else {
-      const idInputMotorcycle = document.getElementById('motorcycle')
-      if (idInputMotorcycle) {
-        motorcycle?.removeChild(idInputMotorcycle)
-      }
-
-      city?.appendChild(fieldInputCity())
-      city?.classList.remove('hidden')
-      city?.classList.add('block')
-      motorcycle?.classList.remove('block')
-      motorcycle?.classList.add('hidden')
+      removeInputMotorcycle()
     }
   })
 
@@ -153,9 +162,14 @@
     const data = await res.json()
     console.log({ data, res })
     submit.disabled = false
+
+    if (select.value === 'mayor') {
+      removeInputCity()
+    }
+
     form.reset()
 
-    if (res.status !== 201) {
+    if (res.status !== 201 && res.status !== 204) {
       window.toast({
         title: 'Error en el Registro',
         message: 'Hubo un problema al intentar registrar los datos. Por favor, inténtalo de nuevo más tarde.',
