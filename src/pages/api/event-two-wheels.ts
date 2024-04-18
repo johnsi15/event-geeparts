@@ -77,7 +77,7 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       const data = await response.json()
-      console.log('Respuesta:', data)
+      // console.log('Respuesta:', data)
       // if (data?.code === 'duplicate_parameter') return res({ message: data.code.message }, { status: 400 })
 
       return res({ message: 'Contact created', data }, { status: 201, headers: { 'Content-Type': 'application/json' } })
