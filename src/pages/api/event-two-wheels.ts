@@ -31,17 +31,20 @@ export const POST: APIRoute = async ({ request }) => {
       return res({ message: 'Email is required' }, { status: 400 })
     }
 
+    let cleanedPhone = phone.replaceAll(' ', '')
+    cleanedPhone = cleanedPhone.includes('+') ? cleanedPhone : `+57${cleanedPhone}`
+
     const dataRegister = {
       email,
       attributes: {
-        SMS: `+57${phone}`,
+        SMS: cleanedPhone,
         NOMBRE: first_name,
         APELLIDOS: last_name,
         TYPE_PERSON: type_person,
         ...(motorcycle && { MOTORCYCLE: motorcycle }),
-        PHONE: `+57${phone}`,
+        PHONE: cleanedPhone,
         ...(city && { CITY: city }),
-        WHATSAPP: `+57${phone}`,
+        WHATSAPP: cleanedPhone,
       },
       listIds: [Number(listId)],
       emailBlacklisted: false,
@@ -64,19 +67,22 @@ export const POST: APIRoute = async ({ request }) => {
 
       if (!response.ok) {
         // throw new Error('Error try request: ' + response.statusText);
-        res({ message: 'Bad request' }, { status: 400, statusText: response.statusText })
+        return res({ message: 'Bad request' }, { status: 400, statusText: response.statusText })
       }
 
       if (response.status === 204) {
-        return res(
-          { message: 'Contact update' },
-          { status: 204, statusText: response.statusText, headers: { 'Content-Type': 'application/json' } }
-        )
+        console.log('paso por acá ' + response.status)
+        // return res({ message: 'Contact update' }, { status: 204, headers: { 'Content-Type': 'application/json' } })
+
+        return new Response(null, {
+          status: 204,
+          statusText: response.statusText,
+          headers: { 'Content-Type': 'application/json' },
+        })
       }
 
       const data = await response.json()
       // console.log('Respuesta:', data)
-      // if (data?.code === 'duplicate_parameter') return res({ message: data.code.message }, { status: 400 })
 
       return res({ message: 'Contact created', data }, { status: 201, headers: { 'Content-Type': 'application/json' } })
     } catch (error) {
