@@ -52,7 +52,7 @@
     <div>
       <label for='phone' class='block mb-2 text-sm font-medium text-white'>Número de celular</label>
       <input
-        type='tel'
+        type='text'
         id='phone'
         name='phone'
         class='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 outline-none focus:ring-geeparts-300 focus:border-geeparts-300'
@@ -152,23 +152,64 @@
       formData.set('listId', '7')
     }
 
-    const res = await fetch('/api/event-two-wheels', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(Object.fromEntries(formData)),
-    })
+    try {
+      const res = await fetch('/api/event-two-wheels', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      })
 
-    const data = await res.json()
-    console.log({ data, res })
-    submit.disabled = false
+      if (!res.ok) {
+        window.toast({
+          title: 'Error en el Registro',
+          message: 'Hubo un problema al intentar registrar los datos. Por favor, inténtalo de nuevo más tarde.',
+          location: 'bottom-center',
+          icon: false,
+          type: 'error',
+        })
+        return
+      }
 
-    if (select.value === 'mayor') {
-      removeInputCity()
-    }
+      let data = {}
 
-    form.reset()
+      if (res.status !== 204) {
+        data = await res.json()
+      }
 
-    if (res.status !== 201 && res.status !== 204) {
+      console.log({ data, res })
+      submit.disabled = false
+
+      if (select.value === 'mayor') {
+        removeInputCity()
+      }
+
+      form.reset()
+
+      if (res.status !== 201 && res.status !== 204) {
+        window.toast({
+          title: 'Error en el Registro',
+          message: 'Hubo un problema al intentar registrar los datos. Por favor, inténtalo de nuevo más tarde.',
+          location: 'bottom-center',
+          icon: false,
+          type: 'error',
+        })
+        return
+      }
+
+      // let inputs = form.getElementsByTagName('input')
+
+      // for (let i = 0; i < inputs.length; i++) {
+      //   inputs[i].value = ''
+      // }
+
+      window.toast({
+        title: 'Registro Exitoso',
+        message: 'Los datos se han registrado correctamente.',
+        location: 'bottom-center',
+        icon: false,
+        type: 'success',
+      })
+    } catch (error) {
       window.toast({
         title: 'Error en el Registro',
         message: 'Hubo un problema al intentar registrar los datos. Por favor, inténtalo de nuevo más tarde.',
@@ -176,22 +217,7 @@
         icon: false,
         type: 'error',
       })
-      return
     }
-
-    // let inputs = form.getElementsByTagName('input')
-
-    // for (let i = 0; i < inputs.length; i++) {
-    //   inputs[i].value = ''
-    // }
-
-    window.toast({
-      title: 'Registro Exitoso',
-      message: 'Los datos se han registrado correctamente.',
-      location: 'bottom-center',
-      icon: false,
-      type: 'success',
-    })
   })
 
   const fieldInputCity = () => {
