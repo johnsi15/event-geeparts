@@ -160,6 +160,21 @@
       })
 
       if (!res.ok) {
+        const { message, data } = await res.json()
+        submit.disabled = false
+
+        if (data.error.includes('duplicate_parameter') && message.includes('SMS is already associated')) {
+          window.toast({
+            title: 'No se puede registrar',
+            message: 'El número de teléfono ya está asociado con otro contacto.',
+            location: 'bottom-center',
+            icon: false,
+            type: 'error',
+          })
+
+          return
+        }
+
         window.toast({
           title: 'Error en el Registro',
           message: 'Hubo un problema al intentar registrar los datos. Por favor, inténtalo de nuevo más tarde.',
@@ -167,6 +182,7 @@
           icon: false,
           type: 'error',
         })
+
         return
       }
 
@@ -176,7 +192,6 @@
         data = await res.json()
       }
 
-      console.log({ data, res })
       submit.disabled = false
 
       if (select.value === 'mayor') {
@@ -195,12 +210,6 @@
         })
         return
       }
-
-      // let inputs = form.getElementsByTagName('input')
-
-      // for (let i = 0; i < inputs.length; i++) {
-      //   inputs[i].value = ''
-      // }
 
       window.toast({
         title: 'Registro Exitoso',
